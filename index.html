@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>ADI World Cricket Auction</title>
+<style>
+:root{--bg:#07111f;--panel:#0d1b2d;--panel2:#11243b;--line:#28425f;--text:#f5f8ff;--muted:#9db0c9;--gold:#ffd34d;--green:#4ee28a;--red:#ff6175;--blue:#58a6ff}
+*{box-sizing:border-box}body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;background:radial-gradient(circle at 50% 0,#17365b 0,#07111f 45%,#040912 100%);color:var(--text);min-height:100vh}button,input,select{font:inherit}button{cursor:pointer;border:0;border-radius:12px;padding:13px 16px;font-weight:800;background:#1a3554;color:#fff;transition:.15s}button:hover{transform:translateY(-1px);filter:brightness(1.15)}button:disabled{opacity:.4;cursor:not-allowed;transform:none}input{width:100%;padding:13px;border-radius:10px;border:1px solid var(--line);background:#071421;color:#fff;outline:none}.app{max-width:1500px;margin:auto;padding:18px}.top{display:flex;gap:12px;align-items:center;justify-content:space-between;flex-wrap:wrap;margin-bottom:14px}.brand{font-size:clamp(22px,4vw,36px);font-weight:950}.brand span{color:var(--gold)}.top-actions{display:flex;gap:8px;flex-wrap:wrap}.screen{display:none}.screen.active{display:block}.panel{background:linear-gradient(145deg,rgba(17,36,59,.96),rgba(8,20,35,.96));border:1px solid var(--line);border-radius:18px;padding:18px;box-shadow:0 15px 45px #0006}.hero{text-align:center;padding:35px 18px}.hero h1{font-size:clamp(30px,7vw,70px);margin:0 0 10px}.hero p{color:var(--muted)}.choices{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;max-width:850px;margin:24px auto}.choices button{font-size:20px;padding:20px;background:#153352}.grid{display:grid;gap:14px}.team-form-grid{grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}.team-card{padding:16px;border:1px solid var(--line);border-radius:14px;background:#091827}.team-card h3{margin:0 0 12px}.team-card label{display:block;color:var(--muted);font-size:13px;margin:10px 0 5px}.primary{background:linear-gradient(135deg,#f0a900,#ffd34d);color:#07111f}.danger{background:#6b1e2d}.success{background:#126b43}.blue{background:#164d80}.layout{display:grid;grid-template-columns:1.65fr 1fr;gap:14px}.auction-card{text-align:center;position:relative;overflow:hidden}.auction-card:before{content:"";position:absolute;inset:-100px;background:radial-gradient(circle,#1f6d9c33,transparent 55%);animation:spin 12s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}.auction-content{position:relative}.tag{display:inline-block;padding:6px 10px;border-radius:999px;background:#173b5d;color:#a9d5ff;font-size:12px;font-weight:900}.player-name{font-size:clamp(28px,5vw,55px);font-weight:950;margin:8px 0}.meta{color:var(--muted)}.rating{font-size:28px;color:var(--gold);font-weight:900}.price-row{display:flex;justify-content:center;gap:25px;flex-wrap:wrap;margin:18px}.big{font-size:30px;font-weight:950}.timer{font-size:56px;font-weight:950;color:var(--gold)}.bidder{font-size:20px;min-height:30px}.bid-buttons{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:15px}.teams{display:grid;gap:10px}.team-live{padding:12px;border-radius:13px;background:#091827;border:1px solid var(--line)}.team-live-head{display:flex;justify-content:space-between;gap:8px}.status{font-size:11px;font-weight:900}.active-status{color:var(--green)}.dead-status{color:var(--red)}.bar{height:7px;background:#1a2b40;border-radius:9px;overflow:hidden;margin:8px 0}.bar i{display:block;height:100%;background:linear-gradient(90deg,#ffd34d,#4ee28a)}.history{max-height:300px;overflow:auto}.history div{padding:8px 0;border-bottom:1px solid #ffffff12;font-size:13px}.msg{position:fixed;left:50%;bottom:20px;transform:translateX(-50%);background:#081827;border:1px solid var(--gold);padding:12px 18px;border-radius:12px;z-index:99;display:none;max-width:90%;text-align:center}.msg.show{display:block}.sold-overlay{position:fixed;inset:0;background:#000b;display:none;align-items:center;justify-content:center;z-index:80}.sold-box{background:linear-gradient(145deg,#143b2a,#0b1724);border:2px solid var(--gold);border-radius:24px;padding:40px;text-align:center;animation:pop .35s ease}@keyframes pop{from{transform:scale(.7);opacity:0}to{transform:scale(1);opacity:1}}.score{font-size:clamp(34px,7vw,70px);font-weight:950}.score small{font-size:18px;color:var(--muted)}.match-grid{display:grid;grid-template-columns:1.4fr .8fr;gap:14px}.scoreboard{background:#061321;border:1px solid var(--line);border-radius:14px;padding:16px}.ball{padding:15px;border-radius:14px;background:#0b2033;border-left:5px solid var(--gold);margin:12px 0}.versus{display:flex;justify-content:center;align-items:center;gap:15px;font-size:clamp(18px,3vw,30px);font-weight:950;margin:15px 0}.batters{display:grid;grid-template-columns:1fr 1fr;gap:8px}.statline{display:flex;justify-content:space-between;gap:10px;padding:7px 0;border-bottom:1px solid #ffffff10}.bracket{display:grid;gap:10px}.match-card{padding:14px;border:1px solid var(--line);border-radius:12px;background:#091827}.champ{padding:45px;text-align:center;background:radial-gradient(circle,#294c25,#0a1724);border:2px solid var(--gold)}.champ h1{font-size:clamp(32px,7vw,70px);color:var(--gold)}.table{width:100%;border-collapse:collapse}.table th,.table td{padding:9px;border-bottom:1px solid #ffffff12;text-align:left}.small{font-size:12px;color:var(--muted)}.controls{display:flex;gap:8px;flex-wrap:wrap}.notice{padding:10px;border-radius:10px;background:#10273b;color:#b8d9f5}.tabs{display:flex;gap:8px;overflow:auto;margin-bottom:12px}.tabs button{white-space:nowrap}.hide{display:none!important}@media(max-width:900px){.layout,.match-grid{grid-template-columns:1fr}.choices{grid-template-columns:repeat(2,1fr)}.bid-buttons{grid-template-columns:repeat(2,1fr)}}@media(max-width:520px){.app{padding:9px}.panel{padding:12px}.choices{grid-template-columns:1fr}.batters{grid-template-columns:1fr}.top-actions button{padding:10px}.timer{font-size:48px}}@media(min-width:1300px){body{font-size:18px}.app{padding:28px}}
+</style>
+  <link rel="manifest" href="manifest.webmanifest">
+</head>
+<body>
+<div class="app">
+<header class="top">
+  <div class="brand">🏏 ADI <span>WORLD CRICKET AUCTION</span></div>
+  <div class="top-actions">
+    <button onclick="saveGame()">💾 SAVE</button><button onclick="loadGame()">▶️ CONTINUE</button>
+    <button onclick="newGame()">🆕 NEW GAME</button><button onclick="toggleSound()">🔊 <span id="soundTxt">ON</span></button>
+    <button onclick="fullscreen()">⛶ FULLSCREEN</button>
+  </div>
+</header>
+
+<section id="setup" class="screen active">
+  <div class="panel hero">
+    <h1>🏏 ADI WORLD CRICKET AUCTION</h1>
+    <p>Offline world-player auction → T20 tournament. One HTML file. No internet required.</p>
+    <h2>HOW MANY TEAMS?</h2>
+    <div class="choices" id="teamChoices"></div>
+  </div>
+</section>
+
+<section id="names" class="screen">
+  <div class="panel">
+    <h2>👥 ENTER TEAM & OWNER NAMES</h2>
+    <div id="teamForms" class="grid team-form-grid"></div>
+    <div class="controls" style="margin-top:16px"><button class="primary" onclick="startAuction()">🏏 START AUCTION</button><button onclick="show('setup')">← BACK</button></div>
+  </div>
+</section>
+
+<section id="auction" class="screen">
+  <div class="layout">
+    <div>
+      <div class="panel auction-card">
+        <div class="auction-content">
+          <span class="tag">🔨 LIVE AUCTION</span>
+          <div id="pCountry" class="meta"></div>
+          <div id="pName" class="player-name">—</div>
+          <div id="pRole" class="meta"></div>
+          <div id="pRating" class="rating">⭐ —</div>
+          <div class="price-row"><div>BASE<br><span id="basePrice" class="big">₹— Cr</span></div><div>CURRENT BID<br><span id="currentBid" class="big">₹— Cr</span></div></div>
+          <div>TIMER</div><div id="timer" class="timer">15</div>
+          <div id="highestBidder" class="bidder">No bids</div>
+          <div id="auctionAnnouncement" class="notice" style="margin-top:12px">Ready.</div>
+          <div class="bid-buttons">
+            <button onclick="quickBid(1)">+₹1 Cr</button><button onclick="quickBid(2)">+₹2 Cr</button>
+            <button onclick="quickBid(5)">+₹5 Cr</button><button class="primary" onclick="customBid()">CUSTOM BID</button>
+          </div>
+          <div id="teamBidButtons" class="controls" style="justify-content:center;margin-top:10px"></div>
+          <div class="controls" style="justify-content:center;margin-top:10px"><button class="danger" onclick="passPlayer()">⏭️ SKIP / PASS</button><button onclick="forceSold()">🔨 SOLD</button></div>
+        </div>
+      </div>
+      <div class="panel" style="margin-top:14px"><h3>📜 AUCTION HISTORY</h3><div id="auctionHistory" class="history"></div></div>
+    </div>
+    <aside class="panel"><h2>📊 LIVE TEAMS</h2><div id="liveTeams" class="teams"></div></aside>
+  </div>
+</section>
+
+<section id="auctionEnd" class="screen">
+  <div class="panel"><h1>🔥 AUCTION COMPLETE!</h1><div id="finalSquads"></div><div class="controls" style="margin-top:15px"><button class="primary" onclick="beginTournament()">🏆 CREATE PLAYING XI & START TOURNAMENT</button></div></div>
+</section>
+
+<section id="tournament" class="screen">
+  <div class="panel"><h1>🏆 T20 TOURNAMENT</h1><div id="bracket" class="bracket"></div></div>
+</section>
+
+<section id="match" class="screen">
+  <div class="match-grid">
+    <div>
+      <div class="panel">
+        <div id="matchTitle" class="versus">— VS —</div>
+        <div class="scoreboard"><div id="batTeamName"></div><div id="score" class="score">0/0 <small>0.0 ov</small></div><div id="targetLine" class="small"></div></div>
+        <div id="batters" class="batters" style="margin-top:10px"></div>
+        <div id="ballEvent" class="ball">Press NEXT BALL to begin.</div>
+        <div class="versus"><span id="strikerName">—</span><span>⚔️</span><span id="bowlerName">—</span></div>
+        <div class="controls"><button class="primary" id="nextBallBtn" onclick="nextBall()">▶️ NEXT BALL</button><button onclick="toggleAuto()" id="autoBtn">AUTO PLAY</button><button onclick="togglePause()" id="pauseBtn">PAUSE</button><button onclick="finishBallSpeed()">⚡ FAST FORWARD</button></div>
+      </div>
+      <div class="panel" style="margin-top:14px"><h3>📊 CURRENT BOWLER</h3><div id="bowlerStats"></div></div>
+    </div>
+    <aside class="panel"><h2>🏏 MATCH INFO</h2><div id="matchInfo"></div><h3>📜 BALL LOG</h3><div id="ballLog" class="history"></div></aside>
+  </div>
+</section>
+
+<section id="toss" class="screen">
+  <div class="panel hero"><h1>🪙 TOSS</h1><div id="tossTeams" class="versus"></div><div id="tossResult" class="notice">Tossing...</div><div id="tossChoices" class="controls" style="justify-content:center;margin-top:20px"></div></div>
+</section>
+
+<section id="result" class="screen">
+  <div class="panel"><h1>🏆 MATCH COMPLETE!</h1><div id="matchResult"></div><div class="controls"><button class="primary" onclick="continueTournament()">➡️ CONTINUE TOURNAMENT</button></div></div>
+</section>
+
+<section id="champion" class="screen">
+  <div id="championBox" class="panel champ"></div>
+  <div class="panel" style="margin-top:14px"><h2>🥇 FINAL RANKING & STATISTICS</h2><div id="finalStats"></div><div class="controls" style="margin-top:16px"><button class="primary" onclick="playAgain()">🔄 PLAY AGAIN</button><button onclick="saveGame()">💾 SAVE GAME</button></div></div>
+</section>
+</div>
+<div id="toast" class="msg"></div>
+<div id="soldOverlay" class="sold-overlay"><div class="sold-box"><div style="font-size:60px">🔨</div><h1>SOLD!</h1><div id="soldText"></div></div></div>
+
+<script>
+"use strict";
+
+/* ---------- OFFLINE WORLD PLAYER DATABASE ---------- */
+const players=[
+["Virat Kohli","India","Batsman","Right","Right-arm medium","96",98,35,92,7,"Elite chase specialist and technically complete batter."],
+["Rohit Sharma","India","Batsman","Right","Right-arm off-break","92",95,45,82,6,"Explosive opener and experienced captain."],
+["Sachin Tendulkar","India","Batsman","Right","Right-arm medium","98",99,40,94,7,"All-time batting great with complete technique."],
+["MS Dhoni","India","Wicketkeeper-Batsman","Right","Right-arm medium","94",90,30,98,6,"Elite finisher, wicketkeeper and captain."],
+["Jasprit Bumrah","India","Bowler","Right","Right-arm fast","96",30,99,90,7,"World-class pace, yorkers and control."],
+["Kapil Dev","India","All-Rounder","Right","Right-arm fast-medium","94",88,91,88,6,"Dynamic all-rounder and legendary captain."],
+["Sunil Gavaskar","India","Batsman","Right","Right-arm medium","91",95,25,90,5,"Classical opening batter."],
+["Rahul Dravid","India","Batsman","Right","Right-arm off-break","92",94,30,96,5,"Dependable anchor with exceptional technique."],
+["Sourav Ganguly","India","Batsman","Left","Right-arm medium","89",92,32,84,4,"Elegant left-hand top-order batter."],
+["Yuvraj Singh","India","All-Rounder","Left","Slow left-arm orthodox","91",94,75,90,5,"Power hitter and useful left-arm spinner."],
+["Ravindra Jadeja","India","All-Rounder","Left","Slow left-arm orthodox","93",88,91,99,6,"Elite all-rounder and fielder."],
+["Ravichandran Ashwin","India","All-Rounder","Right","Right-arm off-break","91",68,96,88,5,"Tactical spinner and capable batter."],
+["Hardik Pandya","India","All-Rounder","Right","Right-arm fast-medium","89",90,82,87,5,"Powerful middle-order all-rounder."],
+["Shubman Gill","India","Batsman","Right","Right-arm off-break","88",92,30,84,5,"Modern top-order stroke-maker."],
+["Rishabh Pant","India","Wicketkeeper-Batsman","Left","Right-arm medium","90",91,20,91,5,"Aggressive keeper-batter."],
+["Babar Azam","Pakistan","Batsman","Right","Right-arm off-break","93",97,30,86,6,"Elegant high-class top-order batter."],
+["Wasim Akram","Pakistan","Bowler","Left","Left-arm fast","97",38,99,91,7,"Legendary swing and seam bowler."],
+["Waqar Younis","Pakistan","Bowler","Right","Right-arm fast","94",25,98,82,6,"Fast bowler famous for reverse swing."],
+["Imran Khan","Pakistan","All-Rounder","Right","Right-arm fast","94",83,94,88,6,"Complete pace all-rounder and captain."],
+["Shoaib Akhtar","Pakistan","Bowler","Right","Right-arm fast","91",20,97,75,5,"Express pace threat."],
+["Shahid Afridi","Pakistan","All-Rounder","Right","Right-arm leg-break","88",84,82,84,4,"Explosive hitter and attacking leg-spinner."],
+["AB de Villiers","South Africa","Wicketkeeper-Batsman","Right","Right-arm medium","96",98,32,96,6,"Versatile 360-degree batter and elite fielder."],
+["Jacques Kallis","South Africa","All-Rounder","Right","Right-arm fast-medium","96",95,94,91,7,"One of cricket's greatest all-rounders."],
+["Dale Steyn","South Africa","Bowler","Right","Right-arm fast","94",24,98,89,6,"Aggressive high-speed wicket-taker."],
+["Graeme Smith","South Africa","Batsman","Left","Right-arm medium","88",90,25,83,4,"Durable opening batter and captain."],
+["Faf du Plessis","South Africa","Batsman","Right","Right-arm medium","90",92,28,94,5,"Athletic top-order batter."],
+["Steve Smith","Australia","Batsman","Right","Right-arm leg-break","95",98,45,91,7,"Unorthodox but elite run scorer."],
+["Ricky Ponting","Australia","Batsman","Right","Right-arm medium","95",97,32,95,6,"Aggressive champion batter and captain."],
+["Don Bradman","Australia","Batsman","Right","Right-arm medium","99",100,20,95,7,"Historic batting benchmark."],
+["Glenn McGrath","Australia","Bowler","Right","Right-arm fast-medium","95",25,98,94,6,"Relentless line, length and accuracy."],
+["Shane Warne","Australia","Bowler","Right","Right-arm leg-break","96",48,99,88,7,"Master leg-spinner and tactician."],
+["Pat Cummins","Australia","Bowler","Right","Right-arm fast","94",55,96,91,6,"Complete modern fast bowler."],
+["Mitchell Starc","Australia","Bowler","Left","Left-arm fast","93",40,97,84,6,"Left-arm pace and devastating yorkers."],
+["David Warner","Australia","Batsman","Left","Right-arm leg-break","91",95,25,84,5,"Explosive opener."],
+["Adam Gilchrist","Australia","Wicketkeeper-Batsman","Left","Right-arm medium","95",96,20,96,6,"Revolutionary attacking keeper-batter."],
+["Ben Stokes","England","All-Rounder","Left","Right-arm fast-medium","93",92,83,91,6,"Big-match all-rounder."],
+["Joe Root","England","Batsman","Right","Right-arm off-break","94",97,45,89,6,"Technically elite batter."],
+["James Anderson","England","Bowler","Right","Right-arm fast-medium","92",25,97,90,5,"Master of swing bowling."],
+["Stuart Broad","England","Bowler","Left","Right-arm fast-medium","91",40,94,84,5,"Tall seam bowler and big-match performer."],
+["Jos Buttler","England","Wicketkeeper-Batsman","Right","Right-arm medium","93",95,20,91,6,"Explosive limited-overs keeper-batter."],
+["Kevin Pietersen","England","Batsman","Right","Right-arm off-break","91",95,28,82,5,"Aggressive innovative batter."],
+["Kane Williamson","New Zealand","Batsman","Right","Right-arm off-break","93",96,40,92,6,"Calm elite anchor."],
+["Brendon McCullum","New Zealand","Wicketkeeper-Batsman","Right","Right-arm medium","90",92,20,90,5,"Fearless attacking opener."],
+["Trent Boult","New Zealand","Bowler","Left","Left-arm fast-medium","92",32,96,89,6,"Swing specialist."],
+["Tim Southee","New Zealand","Bowler","Right","Right-arm medium-fast","90",35,93,84,5,"Experienced swing bowler."],
+["Muttiah Muralitharan","Sri Lanka","Bowler","Right","Right-arm off-break","98",22,100,91,7,"Record-breaking mystery off-spinner."],
+["Kumar Sangakkara","Sri Lanka","Wicketkeeper-Batsman","Left","Right-arm medium","95",97,25,96,6,"Elegant keeper-batter."],
+["Mahela Jayawardene","Sri Lanka","Batsman","Right","Right-arm medium","92",95,28,93,5,"Graceful top-order batter."],
+["Sanath Jayasuriya","Sri Lanka","All-Rounder","Left","Slow left-arm orthodox","91",94,76,85,5,"Explosive opener and spinner."],
+["Lasith Malinga","Sri Lanka","Bowler","Right","Right-arm fast","92",25,97,80,5,"Distinctive sling-arm pace and yorkers."],
+["Brian Lara","West Indies","Batsman","Left","Right-arm medium","97",99,25,92,7,"Legendary stroke-maker."],
+["Viv Richards","West Indies","Batsman","Right","Right-arm medium","96",99,38,94,7,"Dominant aggressive batting icon."],
+["Clive Lloyd","West Indies","Batsman","Left","Right-arm medium","91",93,35,88,5,"Powerful batter and great captain."],
+["Curtly Ambrose","West Indies","Bowler","Right","Right-arm fast","95",22,99,92,6,"Relentless tall fast bowler."],
+["Chris Gayle","West Indies","Batsman","Left","Right-arm off-break","92",97,35,79,5,"Towering six-hitting opener."],
+["Andre Russell","West Indies","All-Rounder","Right","Right-arm fast","90",91,82,89,5,"Explosive T20 all-rounder."],
+["Kieron Pollard","West Indies","All-Rounder","Right","Right-arm medium-fast","89",88,75,92,5,"Powerful finisher and medium pacer."],
+["Rashid Khan","Afghanistan","Bowler","Right","Right-arm leg-break","94",45,98,91,6,"Elite T20 leg-spinner."],
+["Mohammad Nabi","Afghanistan","All-Rounder","Right","Right-arm off-break","86",78,86,90,4,"Experienced off-spinning all-rounder."],
+["Shakib Al Hasan","Bangladesh","All-Rounder","Left","Slow left-arm orthodox","92",89,92,88,6,"Complete left-arm all-rounder."],
+["Tamim Iqbal","Bangladesh","Batsman","Left","Right-arm medium","86",91,20,78,4,"Prolific left-hand opener."],
+["Mashrafe Mortaza","Bangladesh","All-Rounder","Right","Right-arm medium-fast","82",61,78,81,3,"Veteran seam-bowling leader."],
+["Mustafizur Rahman","Bangladesh","Bowler","Left","Left-arm medium-fast","87",25,92,82,5,"Cutter specialist."],
+["Mushfiqur Rahim","Bangladesh","Wicketkeeper-Batsman","Right","Right-arm medium","87",87,20,90,4,"Experienced keeper-batter."],
+["Angelo Mathews","Sri Lanka","All-Rounder","Right","Right-arm medium","87",83,68,84,4,"Versatile middle-order all-rounder."],
+["Dimuth Karunaratne","Sri Lanka","Batsman","Left","Right-arm medium","84",88,20,82,3,"Reliable opening batter."],
+["Ross Taylor","New Zealand","Batsman","Right","Right-arm off-break","88",92,20,85,4,"Experienced middle-order batter."],
+["Shane Watson","Australia","All-Rounder","Right","Right-arm fast-medium","91",91,84,88,5,"Powerful opener and seam all-rounder."],
+["Mitchell Johnson","Australia","Bowler","Left","Left-arm fast","90",42,95,83,5,"Left-arm pace with bounce."],
+["Michael Clarke","Australia","Batsman","Right","Right-arm off-break","90",93,54,91,5,"Elegant batter and part-time spinner."],
+["Younis Khan","Pakistan","Batsman","Right","Right-arm medium","90",94,22,87,5,"Big-match top-order batter."],
+["Mohammad Rizwan","Pakistan","Wicketkeeper-Batsman","Right","Right-arm medium","91",93,15,94,5,"High-energy keeper-opener."],
+["Shaheen Shah Afridi","Pakistan","Bowler","Left","Left-arm fast","92",35,96,86,6,"Tall left-arm strike bowler."],
+["Mohammad Amir","Pakistan","Bowler","Left","Left-arm fast","88",22,94,82,5,"Left-arm swing bowler."],
+["Saeed Anwar","Pakistan","Batsman","Left","Right-arm medium","89",95,20,80,5,"Elegant opening batter."],
+["Inzamam-ul-Haq","Pakistan","Batsman","Right","Right-arm medium","90",95,15,78,5,"Powerful middle-order batter."],
+["Quinton de Kock","South Africa","Wicketkeeper-Batsman","Left","Right-arm medium","91",94,20,89,5,"Aggressive keeper-opener."],
+["Hashim Amla","South Africa","Batsman","Right","Right-arm medium","90",94,20,91,5,"Classical run machine."],
+["Morne Morkel","South Africa","Bowler","Right","Right-arm fast","88",22,93,84,4,"Tall fast bowler."],
+["Herschelle Gibbs","South Africa","Batsman","Right","Right-arm medium","87",93,15,86,4,"Attacking top-order batter."],
+["Ian Botham","England","All-Rounder","Right","Right-arm fast-medium","93",90,91,87,6,"Legendary match-winning all-rounder."],
+["Eoin Morgan","England","Batsman","Left","Right-arm medium","88",90,18,86,4,"Innovative limited-overs batter."],
+["Alastair Cook","England","Batsman","Left","Right-arm medium","90",94,20,88,5,"Durable opening batter."],
+["Jofra Archer","England","Bowler","Right","Right-arm fast","90",32,96,85,5,"Fast bowler with bounce and control."],
+["Andrew Flintoff","England","All-Rounder","Right","Right-arm fast","91",88,90,89,5,"Powerful seam all-rounder."],
+["Daniel Vettori","New Zealand","All-Rounder","Left","Slow left-arm orthodox","88",73,91,90,4,"Accurate left-arm spinner and batter."],
+["Martin Guptill","New Zealand","Batsman","Right","Right-arm medium","87",91,18,88,4,"Powerful limited-overs opener."],
+["Nathan Astle","New Zealand","All-Rounder","Right","Right-arm medium","84",86,65,82,3,"Aggressive batter and seam option."],
+["Chaminda Vaas","Sri Lanka","Bowler","Left","Left-arm fast-medium","88",28,94,87,4,"Swing and seam specialist."],
+["Arjuna Ranatunga","Sri Lanka","All-Rounder","Left","Right-arm medium","86",87,62,80,4,"Clever captain and middle-order all-rounder."],
+["Dwayne Bravo","West Indies","All-Rounder","Right","Right-arm medium-fast","88",83,84,92,5,"T20 specialist and death bowler."],
+["Sunil Narine","West Indies","All-Rounder","Left","Right-arm mystery spin","90",72,95,90,5,"Mystery spinner and aggressive hitter."],
+["Nicholas Pooran","West Indies","Wicketkeeper-Batsman","Left","Right-arm off-break","88",92,12,84,4,"Explosive left-hand T20 batter."],
+["Aiden Markram","South Africa","All-Rounder","Right","Right-arm off-break","88",88,73,91,4,"Modern batting all-rounder."],
+["Tabraiz Shamsi","South Africa","Bowler","Left","Left-arm wrist-spin","84",20,90,80,3,"Attacking left-arm wrist spinner."],
+["Sikandar Raza","Zimbabwe","All-Rounder","Right","Right-arm off-break","86",87,78,87,4,"Versatile Zimbabwe all-rounder."],
+["Sean Williams","Zimbabwe","All-Rounder","Left","Slow left-arm orthodox","83",84,75,80,3,"Left-hand batting and spin option."],
+["Brendan Taylor","Zimbabwe","Wicketkeeper-Batsman","Right","Right-arm medium","83",86,18,86,3,"Experienced keeper-batter."],
+["Blessing Muzarabani","Zimbabwe","Bowler","Right","Right-arm fast","82",25,91,77,3,"Tall quick bowler."],
+["Paul Stirling","Ireland","Batsman","Right","Right-arm off-break","84",90,45,80,3,"Powerful opener."],
+["Mark Adair","Ireland","All-Rounder","Right","Right-arm fast-medium","81",72,83,78,3,"Useful seam all-rounder."],
+["Andy Balbirnie","Ireland","Batsman","Right","Right-arm medium","80",84,18,82,3,"Solid top-order batter."],
+["Brandon Glover","Netherlands","Bowler","Right","Right-arm fast","78",18,87,75,2,"Skiddy pace bowler."],
+["Ryan ten Doeschate","Netherlands","All-Rounder","Right","Right-arm medium-fast","82",83,75,84,3,"Experienced associate all-rounder."],
+["Bas de Leede","Netherlands","All-Rounder","Right","Right-arm medium-fast","79",78,77,82,2,"Modern Dutch all-rounder."],
+["Richie Berrington","Scotland","All-Rounder","Right","Right-arm medium","81",83,65,84,3,"Scotland's dependable all-rounder."],
+["George Munsey","Scotland","Batsman","Left","Right-arm medium","79",86,15,78,2,"Aggressive left-hand opener."],
+["Calum MacLeod","Scotland","Batsman","Right","Right-arm medium","77",82,12,76,2,"Powerful associate batter."],
+["Sandeep Lamichhane","Nepal","Bowler","Right","Right-arm leg-break","83",28,92,88,4,"Nepal's attacking leg-spinner."],
+["Dipendra Singh Airee","Nepal","All-Rounder","Right","Right-arm medium","79",80,70,86,3,"Dynamic Nepal all-rounder."],
+["Rohit Paudel","Nepal","Batsman","Right","Right-arm medium","76",81,35,78,2,"Nepal middle-order batter."],
+["Aaron Jones","USA","Batsman","Right","Right-arm medium","77",84,22,78,2,"Powerful USA middle-order batter."],
+["Saurabh Netravalkar","USA","Bowler","Left","Left-arm medium-fast","76",20,86,82,2,"Accurate left-arm seamer."],
+["Corey Anderson","New Zealand","All-Rounder","Left","Left-arm medium-fast","84",86,76,84,3,"Powerful seam all-rounder."],
+["John Davison","Canada","All-Rounder","Right","Right-arm off-break","76",82,72,72,2,"Experienced Canadian all-rounder."],
+["Navneet Dhaliwal","Canada","Batsman","Right","Right-arm medium","74",80,15,74,2,"Canadian top-order batter."]
+].map((p,i)=>({id:i,name:p[0],country:p[1],role:p[2],bat:p[3],bowl:p[4],overall:+p[5],batting:p[6],bowling:p[7],fielding:p[8],price:p[9],desc:p[10]}));
+
+let G=null, timerHandle=null, autoHandle=null;
+
+/* ---------- CORE ---------- */
+function fresh(){return {stage:"setup",teamCount:0,teams:[],auctionOrder:[],auctionIndex:0,current:null,currentBid:0,highestBidder:null,auctionHistory:[],skipped:[],sound:true,tournament:null,match:null,matchHistory:[],rankings:[],savedAt:null};}
+function show(id){document.querySelectorAll(".screen").forEach(x=>x.classList.remove("active"));document.getElementById(id).classList.add("active")}
+function esc(s){return String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
+function money(n){return `₹${n} Cr`}
+function toast(t){const x=document.getElementById("toast");x.textContent=t;x.classList.add("show");setTimeout(()=>x.classList.remove("show"),2200)}
+function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
+function chooseTeams(n){G=fresh();G.teamCount=n;document.getElementById("teamForms").innerHTML=Array.from({length:n},(_,i)=>`<div class="team-card"><h3>TEAM ${i+1}</h3><label>Team Name</label><input id="tn${i}" value="${i===0?"ADITYA XI":`TEAM ${i+1} XI`}"><label>Owner</label><input id="to${i}" value="${i===0?"ADITYA":`OWNER ${i+1}`}"></div>`).join("");show("names")}
+function startAuction(){
+ G.teams=Array.from({length:G.teamCount},(_,i)=>({id:i,name:document.getElementById("tn"+i).value.trim()||`TEAM ${i+1} XI`,owner:document.getElementById("to"+i).value.trim()||`OWNER ${i+1}`,budget:300,spent:0,squad:[],stats:{matches:0,wins:0,losses:0,runs:0,wickets:0,fours:0,sixes:0,catches:0,runouts:0}}));
+ G.auctionOrder=shuffle(players.map(p=>p.id));G.auctionIndex=0;G.auctionHistory=[];G.skipped=[];G.stage="auction";loadAuctionPlayer();saveGame(false)
+}
+function activeTeams(){return G.teams.filter(t=>t.squad.length<15&&t.budget>0)}
+function playerById(id){return players.find(p=>p.id===id)}
+function loadAuctionPlayer(){
+ clearInterval(timerHandle);
+ if(G.auctionIndex>=G.auctionOrder.length||activeTeams().length===0){finishAuction();return}
+ G.current=playerById(G.auctionOrder[G.auctionIndex]);G.currentBid=0;G.highestBidder=null;
+ renderAuction();let left=15;document.getElementById("timer").textContent=left;
+ timerHandle=setInterval(()=>{left--;document.getElementById("timer").textContent=Math.max(0,left);if(left<=0){clearInterval(timerHandle);if(G.highestBidder!==null)forceSold();else passPlayer()}},1000)
+}
+function renderAuction(){
+ const p=G.current;document.getElementById("pName").textContent=p.name;document.getElementById("pCountry").textContent="🌍 "+p.country+" • "+p.desc;document.getElementById("pRole").textContent=`${p.role} • Bat: ${p.bat} • Bowl: ${p.bowl}`;document.getElementById("pRating").textContent=`⭐ ${p.overall} OVR • 🏏 ${p.batting} • 🎯 ${p.bowling} • 🧤 ${p.fielding}`;document.getElementById("basePrice").textContent=money(p.price);document.getElementById("currentBid").textContent=G.currentBid?money(G.currentBid):"—";document.getElementById("highestBidder").textContent=G.highestBidder===null?"No bids":`Highest bidder: ${G.teams[G.highestBidder].name} — ${money(G.currentBid)}`;
+ document.getElementById("teamBidButtons").innerHTML=G.teams.map(t=>{const can=t.budget>Math.max(G.currentBid,p.price-1)&&t.squad.length<15;return `<button ${can?"":"disabled"} onclick="teamBid(${t.id})">${esc(t.name)} +₹1</button>`}).join("");
+ renderTeams();document.getElementById("auctionAnnouncement").textContent=`Base price ${money(p.price)} • ${p.role}`;
+ document.getElementById("auctionHistory").innerHTML=G.auctionHistory.slice(-25).reverse().map(x=>`<div>${x}</div>`).join("");
+ show("auction")
+}
+function validAmount(amount,teamId){
+ const t=G.teams[teamId];if(!G.current)return "No active player.";
+ if(G.currentBid&&amount<=G.currentBid)return "Bid must be higher than the current bid.";
+ if(!G.currentBid&&amount<G.current.price)return "Bid cannot be below the base price.";
+ if(amount>t.budget)return `Only ${money(t.budget)} remains.`;
+ if(t.budget<=0)return "Budget exhausted.";
+ if(t.squad.length>=15)return "Squad already has 15 players.";
+ if(G.highestBidder===teamId)return "You are already the highest bidder.";
+ return null
+}
+function teamBid(id){const amount=G.currentBid?G.currentBid+1:G.current.price;placeBid(id,amount)}
+function quickBid(inc){
+ const eligible=G.teams.filter(t=>!validAmount((G.currentBid||G.current.price-1)+inc,t.id));
+ if(!eligible.length){toast("❌ No team can make that bid.");return}
+ const id=eligible[0].id;placeBid(id,(G.currentBid||G.current.price-1)+inc)
+}
+function customBid(){let s=prompt("Enter total bid in ₹ Crore:");if(s===null)return;let amount=Number(s);if(!Number.isFinite(amount)){toast("❌ Invalid number");return}let eligible=G.teams.find(t=>t.id!==G.highestBidder&&!validAmount(amount,t.id));if(!eligible){toast("❌ No active team can make that bid.");return}placeBid(eligible.id,amount)}
+function placeBid(id,amount){
+ const reason=validAmount(amount,id);if(reason){toast("❌ INVALID BID — "+reason);return}
+ G.currentBid=amount;G.highestBidder=id;document.getElementById("auctionAnnouncement").textContent=`${G.teams[id].name} bids ${money(amount)}! Timer reset to 15. 🔔`;beep(650,.07);renderAuction();
+ let left=15;clearInterval(timerHandle);document.getElementById("timer").textContent=left;timerHandle=setInterval(()=>{left--;document.getElementById("timer").textContent=Math.max(0,left);if(left<=0){clearInterval(timerHandle);forceSold()}},1000)
+}
+function passPlayer(){
+ clearInterval(timerHandle);const p=G.current;if(!p)return;G.skipped.push(p.id);G.auctionHistory.push(`⏭️ ${p.name} UNSOLD / PASSED`);beep(220,.08);G.auctionIndex++;loadAuctionPlayer()
+}
+function forceSold(){
+ clearInterval(timerHandle);if(!G.current||G.highestBidder===null){passPlayer();return}
+ const p=G.current,t=G.teams[G.highestBidder];if(p.price>G.currentBid||G.currentBid>t.budget){toast("❌ Cannot complete invalid sale.");return}
+ t.budget-=G.currentBid;t.spent+=G.currentBid;t.squad.push(p.id);G.auctionHistory.push(`🔨 ${p.name} SOLD TO ${t.name} FOR ${money(G.currentBid)}`);document.getElementById("soldText").innerHTML=`<strong>${esc(p.name)}</strong><br>PURCHASED BY ${esc(t.name)}<br><b>${money(G.currentBid)}</b>`;document.getElementById("soldOverlay").style.display="flex";beep(880,.16);setTimeout(()=>document.getElementById("soldOverlay").style.display="none",1100);G.auctionIndex++;renderTeams();setTimeout(loadAuctionPlayer,800)
+}
+function renderTeams(){
+ document.getElementById("liveTeams").innerHTML=G.teams.map(t=>{const pct=Math.round(t.budget/300*100);let status=t.squad.length>=15?"SQUAD COMPLETE":t.budget<=0?"💰 BUDGET EXHAUSTED":"ACTIVE";return `<div class="team-live"><div class="team-live-head"><b>${esc(t.name)}</b><span class="status ${status==="ACTIVE"?"active-status":"dead-status"}">${status}</span></div><div class="small">Owner: ${esc(t.owner)}</div><div class="bar"><i style="width:${pct}%"></i></div><div class="statline"><span>Budget</span><b>${money(t.budget)}</b></div><div class="statline"><span>Spent</span><b>${money(t.spent)}</b></div><div class="statline"><span>Squad</span><b>${t.squad.length}/15</b></div></div>`}).join("")
+}
+function finishAuction(){
+ clearInterval(timerHandle);G.stage="auctionEnd";document.getElementById("finalSquads").innerHTML=G.teams.map(t=>`<div class="panel" style="margin:10px 0"><h2>${esc(t.name)} <span class="small">Owner: ${esc(t.owner)}</span></h2><div class="small">Spent ${money(t.spent)} • Remaining ${money(t.budget)} • ${t.squad.length}/15 players</div><p>${t.squad.map(id=>esc(playerById(id).name)).join(" • ")||"No players"}</p></div>`).join("");show("auctionEnd");saveGame(false)
+}
+
+/* ---------- XI + TOURNAMENT ---------- */
+function makeXI(t){
+ const ps=t.squad.map(playerById);
+ if(ps.length<=11)return ps;
+ const chosen=[],used=new Set();
+ const pick=arr=>{const p=arr.filter(x=>!used.has(x.id)).sort((a,b)=>b.overall-a.overall)[0];if(p){chosen.push(p);used.add(p.id)}};
+ pick(ps.filter(p=>p.role==="Wicketkeeper-Batsman"));pick(ps.filter(p=>p.role==="Batsman"));pick(ps.filter(p=>p.role==="Batsman"));pick(ps.filter(p=>p.role==="All-Rounder"));pick(ps.filter(p=>p.role==="All-Rounder"));pick(ps.filter(p=>p.role==="Bowler"));pick(ps.filter(p=>p.role==="Bowler"));pick(ps.filter(p=>p.role==="Bowler"));
+ while(chosen.length<Math.min(11,ps.length))pick(ps);
+ return chosen
+}
+function beginTournament(){
+ G.teams.forEach(t=>t.xi=makeXI(t));const seeded=G.teams.map(t=>t.id);shuffle(seeded);G.tournament={round:1,pending:[],next:[],champion:null,seeded,started:false};G.stage="tournament";renderBracket();show("tournament");saveGame(false)
+}
+function renderBracket(){
+ const tr=G.tournament;let html=`<div class="notice">Tournament: ${G.teams.length} teams • winners advance. BYEs are automatic for uneven brackets.</div>`;
+ if(tr.pending.length){html+=tr.pending.map(m=>`<div class="match-card"><b>${esc(G.teams[m.a].name)}</b> vs <b>${esc(G.teams[m.b].name)}</b><br><button class="primary" onclick="startMatch(${m.a},${m.b})">🏏 PLAY MATCH</button></div>`).join("")}
+ else if(tr.next.length){html+=`<div class="match-card"><b>Next round ready.</b><br><button class="primary" onclick="createRound()">➡️ CREATE NEXT ROUND</button></div>`}
+ else {html+=`<div class="match-card"><b>Preparing tournament...</b></div>`}
+ html+=`<h3>PLAYING XIs</h3>`+G.teams.map(t=>`<div class="match-card"><b>${esc(t.name)}</b><br>${t.xi.map((p,i)=>`${i+1}. ${esc(p.name)}`).join(" • ")}</div>`).join("");
+ document.getElementById("bracket").innerHTML=html
+ if(!tr.started){tr.started=true;createRound()}
+}
+function createRound(){
+ const tr=G.tournament;let list=tr.next.length?tr.next.slice():tr.seeded.slice();tr.next=[];shuffle(list);
+ if(list.length===1){finishTournament(list[0]);return}
+ tr.pending=[];for(let i=0;i<list.length;i+=2){if(i+1>=list.length){tr.next.push(list[i])}else tr.pending.push({a:list[i],b:list[i+1]})}
+ renderBracket()
+}
+function startMatch(a,b){
+ G.match=makeMatch(a,b);G.stage="toss";document.getElementById("tossTeams").textContent=`${G.teams[a].name} VS ${G.teams[b].name}`;document.getElementById("tossResult").textContent="Tossing...";
+ document.getElementById("tossChoices").innerHTML="";show("toss");setTimeout(()=>{const toss=Math.random()<.5?a:b;G.match.toss=toss;document.getElementById("tossResult").textContent=`🪙 ${G.teams[toss].name} WON THE TOSS!`;document.getElementById("tossChoices").innerHTML=`<button class="primary" onclick="chooseBat(true)">🏏 BAT FIRST</button><button onclick="chooseBat(false)">🎯 BOWL FIRST</button>`;beep(500,.12)},600)
+}
+function makeMatch(a,b){return {a,b,bat:null,bowl:null,innings:1,over:0,ball:0,total:[0,0],wickets:[0,0],batsmen:[[],[]],striker:0,nonStriker:1,bowlerIndex:0,batStats:[{},{}],bowlStats:[{},{}],events:[],auto:false,paused:false,finished:false,target:0,lastBall:""}}
+function chooseBat(first){
+ const m=G.match,t=m.toss; m.bat=first?t:(t===m.a?m.b:m.a);m.bowl=m.bat===m.a?m.b:m.a;startInnings();show("match")
+}
+function startInnings(){
+ const m=G.match,bt=G.teams[m.bat],bl=G.teams[m.bowl];m.batsmen[m.bat===m.a?0:1]=bt.xi.slice();m.striker=0;m.nonStriker=Math.min(1,bt.xi.length-1);m.bowlerIndex=0;m.over=0;m.ball=0;
+ if(m.innings===2)m.target=m.total[m.bowl]+1;
+ document.getElementById("matchTitle").textContent=`${bt.name} VS ${bl.name}`;document.getElementById("batTeamName").textContent=bt.name;renderMatch();beep(350,.06)
+}
+function getBatStats(m,p){const k=p.id;const idx=m.bat===m.a?0:1;return m.batStats[idx][k]||(m.batStats[idx][k]={runs:0,balls:0,fours:0,sixes:0,out:false})}
+function getBowlStats(m,p){const idx=m.bat===m.a?0:1;return m.bowlStats[idx][p.id]||(m.bowlStats[idx][p.id]={balls:0,runs:0,wickets:0,maidens:0})}
+function currentBowler(){const t=G.teams[G.match.bowl];const options=t.xi.filter(p=>p.bowling>=45);return options[G.match.bowlerIndex%Math.max(1,options.length)]||t.xi[G.match.bowlerIndex%t.xi.length]}
+function currentBatter(m){const arr=m.batsmen[m.bat===m.a?0:1];return arr[m.striker]}
+function outcome(m,bat,bowl){
+ const state=m.total[m.bat===m.a?0:1], wk=m.wickets[m.bat===m.a?0:1], balls=m.over*6+m.ball, remain=Math.max(1,120-balls);
+ let attack=(bat.batting-bowl.bowling)/100, quality=(bat.overall+bowl.overall)/2;
+ let r=Math.random();
+ let wicketChance=.035+(bowl.bowling-bat.batting)*.0018;
+ if(bat.batting>=92)wicketChance-=.012;if(wicketChance<.015)wicketChance=.015;
+ if(r<wicketChance)return "W";
+ let four=.105+attack*.06, six=.045+attack*.035;
+ if(r<four)return 4;if(r<four+six)return 6;
+ let p1=.19+attack*.04,p2=.08+attack*.02,p3=.015;
+ if(r<four+six+p1)return 1;if(r<four+six+p1+p2)return 2;if(r<four+six+p1+p2+p3)return 3;
+ if(r<.025)return "WD";if(r<.034)return "NB";return 0
+}
+function nextBall(){
+ const m=G.match;if(!m||m.finished||m.paused)return;
+ if(m.over>=20){endInnings();return}
+ const bat=currentBatter(m),bowl=currentBowler(m);if(!bat){endInnings();return}
+ const os=outcome(m,bat,bowl),teamIdx=m.bat===m.a?0:1,bs=getBatStats(m,bat),bw=getBowlStats(m,bowl);
+ let runs=0,legal=true,text="";
+ if(os==="W"){legal=true;bs.balls++;bs.out=true;m.wickets[teamIdx]++;bw.balls++;bw.wickets++;text=`WICKET! ${bat.name} is out.`;beep(120,.15);replaceBatter(m)}
+ else if(os==="WD"){runs=1;legal=false;text="WIDE!";beep(250,.04)}
+ else if(os==="NB"){runs=1;legal=false;text="NO-BALL!";beep(300,.04)}
+ else {runs=os;bs.runs+=runs;bs.balls++;bw.runs+=runs;bw.balls++;if(runs===4)bs.fours++;if(runs===6)bs.sixes++;text=runs===0?"DOT BALL":runs===4?"FOUR!":runs===6?"SIX!":`${runs} RUN${runs>1?"S":""}`;if(runs===4||runs===6)beep(700,.08);else beep(430,.03)}
+ m.total[teamIdx]+=runs;
+ if(os!=="WD"&&os!=="NB")bw.runs+=0;
+ if(legal){m.ball++;if(runs%2===1)swapStrike(m);if(m.ball>=6){m.ball=0;m.over++;swapStrike(m);m.bowlerIndex++}}
+ else if(runs===1){m.total[teamIdx]+=0}
+ m.lastBall=text;m.events.unshift(`${m.over}.${m.ball} • ${bat.name} — ${text}`);m.events=m.events.slice(0,60);
+ if(m.innings===2&&m.total[teamIdx]>=m.target){endMatch();return}
+ if(m.over>=20||m.wickets[teamIdx]>=Math.max(1,G.teams[m.bat].xi.length-1)){endInnings();return}
+ renderMatch()
+}
+function replaceBatter(m){const arr=m.batsmen[m.bat===m.a?0:1];let next=arr.findIndex((p,i)=>i>1&&!getBatStats(m,p).out);if(next<0){m.striker=null;return}m.striker=next}
+function swapStrike(m){[m.striker,m.nonStriker]=[m.nonStriker,m.striker]}
+function endInnings(){
+ const m=G.match,idx=m.bat===m.a?0:1;
+ if(m.innings===1){m.innings=2;m.bat=m.b===m.bat?m.a:m.b;m.bowl=m.bat===m.a?m.b:m.a;m.over=0;m.ball=0;m.wickets[1]=m.wickets[1]||0;m.striker=0;m.nonStriker=1;m.bowlerIndex=0;document.getElementById("ballEvent").textContent=`🏟️ INNINGS BREAK — Target ${m.total[0]+1}`;beep(600,.2);startInnings()}
+ else endMatch()
+}
+function endMatch(){
+ const m=G.match;if(m.finished)return;m.finished=true;clearInterval(autoHandle);m.auto=false;
+ const s0=m.total[0],s1=m.total[1],winner=s0===s1?null:(s1>s0?m.b:m.a);m.winner=winner;m.loser=winner===m.a?m.b:m.a;
+ const winTeam=winner===null?null:G.teams[winner];if(winTeam){winTeam.stats.matches++;winTeam.stats.wins++}const lose=winner===null?null:G.teams[m.loser];if(lose){lose.stats.matches++;lose.stats.losses++}
+ G.teams.forEach((t,i)=>{t.stats.runs+=m.total[i];t.stats.wickets+=m.wickets[i]});
+ G.matchHistory.push({a:m.a,b:m.b,scores:m.total.slice(),winner,pom:playerOfMatch(m)});G.stage="result";renderResult();show("result");beep(980,.3)
+}
+function playerOfMatch(m){
+ const all=[];for(let side=0;side<2;side++)Object.entries(m.batStats[side]).forEach(([id,s])=>all.push({p:playerById(+id),score:s.runs+s.fours*2+s.sixes*3,stat:s}));for(let side=0;side<2;side++)Object.entries(m.bowlStats[side]).forEach(([id,s])=>all.push({p:playerById(+id),score:s.wickets*25-Math.max(0,s.runs-s.balls*1)*.2,stat:s}));return all.sort((a,b)=>b.score-a.score)[0]?.p||G.teams[m.winner]?.xi[0]
+}
+function renderMatch(){
+ const m=G.match,idx=m.bat===m.a?0:1,bt=G.teams[m.bat],bl=G.teams[m.bowl],bat=currentBatter(m),bowl=currentBowler(m),s=m.total[idx],balls=m.over*6+m.ball;
+ document.getElementById("score").innerHTML=`${s}/${m.wickets[idx]} <small>${m.over}.${m.ball} / 20 ov</small>`;document.getElementById("targetLine").textContent=m.innings===2?`Target ${m.target} • Need ${Math.max(0,m.target-s)} from ${Math.max(0,120-balls)} balls`:`First innings • Run rate ${balls?(s/(balls/6)).toFixed(2):"0.00"}`;
+ document.getElementById("batters").innerHTML=[m.striker,m.nonStriker].filter(i=>i!==null&&bt.xi[i]).map(i=>{const p=bt.xi[i],st=getBatStats(m,p);return `<div class="scoreboard"><b>${i===m.striker?"🏏 ":""}${esc(p.name)}</b><br>${st.runs} (${st.balls}) • ${st.fours}x4 • ${st.sixes}x6</div>`}).join("");
+ document.getElementById("strikerName").textContent=bat?.name||"Innings closed";document.getElementById("bowlerName").textContent=bowl?.name||"—";document.getElementById("ballEvent").textContent=m.lastBall||"Press NEXT BALL to begin.";
+ const bw=bowl?getBowlStats(m,bowl):{balls:0,runs:0,wickets:0};document.getElementById("bowlerStats").innerHTML=`<div class="statline"><span>${esc(bowl?.name||"—")}</span><b>${Math.floor(bw.balls/6)}.${bw.balls%6} • ${bw.runs} runs • ${bw.wickets} wickets</b></div>`;
+ document.getElementById("matchInfo").innerHTML=`<div class="statline"><span>Innings</span><b>${m.innings}/2</b></div><div class="statline"><span>Batting</span><b>${esc(bt.name)}</b></div><div class="statline"><span>Bowling</span><b>${esc(bl.name)}</b></div><div class="statline"><span>Run rate</span><b>${balls?(s/(balls/6)).toFixed(2):"0.00"}</b></div>`;
+ document.getElementById("ballLog").innerHTML=m.events.map(x=>`<div>${esc(x)}</div>`).join("")
+}
+function renderResult(){
+ const m=G.match,a=G.teams[m.a],b=G.teams[m.b],pom=m.pom||playerOfMatch(m);let margin="Tie";if(m.winner!==null){margin=m.winner===m.a?`${m.total[0]-m.total[1]} runs`:`${m.total[1]>0?11-m.wickets[1]:0} wickets`}
+ document.getElementById("matchResult").innerHTML=`<div class="champ"><h2>${m.winner===null?"🤝 MATCH TIED":"🏆 "+esc(G.teams[m.winner].name)+" WON!"}</h2><div class="score">${esc(a.name)} ${m.total[0]}/${m.wickets[0]}<small> vs </small>${esc(b.name)} ${m.total[1]}/${m.wickets[1]}</div><p>Result margin: <b>${margin}</b></p><h2>⭐ PLAYER OF THE MATCH</h2><div class="player-name">${esc(pom?.name||"—")}</div></div>`
+}
+function continueTournament(){
+ const m=G.match;if(m.winner===null){G.tournament.next.push(m.a);G.tournament.next.push(m.b)}else G.tournament.next.push(m.winner);
+ G.stage="tournament";show("tournament");if(G.tournament.pending.length)G.tournament.pending.shift();if(!G.tournament.pending.length)createRound();else renderBracket();saveGame(false)
+}
+function finishTournament(champ){
+ G.tournament.champion=champ;G.stage="champion";const ranking=[champ,...G.teams.filter(t=>t.id!==champ).sort((a,b)=>b.stats.wins-a.stats.wins||b.stats.runs-a.stats.runs)];G.rankings=ranking;
+ const c=G.teams[champ],top=c.xi.slice().sort((a,b)=>b.overall-a.overall)[0];document.getElementById("championBox").innerHTML=`<h1>👑 ADI WORLD CRICKET AUCTION CHAMPION</h1><div class="player-name">${esc(c.name)}</div><p>Owner: <b>${esc(c.owner)}</b></p><p>Remaining Budget: <b>${money(c.budget)}</b> • Spending: <b>${money(c.spent)}</b></p><h2>FINAL PLAYING XI</h2><p>${c.xi.map((p,i)=>`${i+1}. ${esc(p.name)}`).join(" • ")}</p><h2>⭐ PLAYER OF TOURNAMENT</h2><div class="rating">${esc(top?.name||"—")}</div>`;
+ document.getElementById("finalStats").innerHTML=`<table class="table"><tr><th>Rank</th><th>Team</th><th>Owner</th><th>Wins</th><th>Losses</th><th>Runs</th><th>Wkts</th><th>Spend</th></tr>${ranking.map((t,i)=>`<tr><td>${i+1}</td><td>${esc(t.name)}</td><td>${esc(t.owner)}</td><td>${t.stats.wins}</td><td>${t.stats.losses}</td><td>${t.stats.runs}</td><td>${t.stats.wickets}</td><td>${money(t.spent)}</td></tr>`).join("")}</table><h3>📜 MATCH HISTORY</h3>${G.matchHistory.map((m,i)=>`<div class="match-card">MATCH ${i+1}: ${esc(G.teams[m.a].name)} ${m.scores[0]} — ${m.scores[1]} ${esc(G.teams[m.b].name)} • Winner: ${m.winner===null?"Tie":esc(G.teams[m.winner].name)} • POM: ${esc(m.pom?.name||"—")}</div>`).join("")}`;
+ show("champion");beep(1200,.4);saveGame(false)
+}
+
+/* ---------- SAVE / RESET / SOUND ---------- */
+function saveGame(manual=true){if(!G)return;G.savedAt=Date.now();localStorage.setItem("adiWorldCricketAuction",JSON.stringify(G));if(manual)toast("💾 Game saved offline.");}
+function loadGame(){const raw=localStorage.getItem("adiWorldCricketAuction");if(!raw){toast("No saved game found.");return}try{G=JSON.parse(raw);restore();toast("▶️ Game restored.");}catch(e){toast("Save data is invalid.")}}
+function restore(){
+ clearInterval(timerHandle);clearInterval(autoHandle);
+ if(!G)G=fresh();
+ if(G.stage==="auction"){if(G.current)renderAuction();else loadAuctionPlayer()}
+ else if(G.stage==="auctionEnd"){finishAuction()}
+ else if(G.stage==="tournament"){renderBracket();show("tournament")}
+ else if(G.stage==="toss"){show("toss")}
+ else if(G.stage==="match"){renderMatch();show("match")}
+ else if(G.stage==="result"){renderResult();show("result")}
+ else if(G.stage==="champion"){finishTournament(G.tournament.champion)}
+ else show("setup")
+}
+function newGame(){if(confirm("Start a completely new game? Unsaved progress will be cleared.")){localStorage.removeItem("adiWorldCricketAuction");G=fresh();clearInterval(timerHandle);clearInterval(autoHandle);show("setup")}}
+function playAgain(){localStorage.removeItem("adiWorldCricketAuction");G=fresh();clearInterval(timerHandle);clearInterval(autoHandle);show("setup")}
+function toggleSound(){if(!G)G=fresh();G.sound=!G.sound;document.getElementById("soundTxt").textContent=G.sound?"ON":"OFF";saveGame(false)}
+function beep(freq,dur){if(!G?.sound)return;try{const C=window.AudioContext||window.webkitAudioContext;if(!C)return;const c=new C(),o=c.createOscillator(),g=c.createGain();o.frequency.value=freq;o.type="sine";g.gain.setValueAtTime(.0001,c.currentTime);g.gain.exponentialRampToValueAtTime(.08,c.currentTime+.01);g.gain.exponentialRampToValueAtTime(.0001,c.currentTime+dur);o.connect(g);g.connect(c.destination);o.start();o.stop(c.currentTime+dur+.02)}catch(e){}}
+function fullscreen(){if(!document.fullscreenElement)document.documentElement.requestFullscreen?.();else document.exitFullscreen?.()}
+function toggleAuto(){const m=G.match;if(!m)return;m.auto=!m.auto;document.getElementById("autoBtn").textContent=m.auto?"⏸ AUTO ON":"AUTO PLAY";clearInterval(autoHandle);if(m.auto)autoHandle=setInterval(()=>{if(!m.paused&&!m.finished)nextBall()},350)}
+function togglePause(){G.match.paused=!G.match.paused;document.getElementById("pauseBtn").textContent=G.match.paused?"RESUME":"PAUSE"}
+function finishBallSpeed(){for(let i=0;i<12&&!G.match.finished&&!G.match.paused;i++)nextBall()}
+
+/* setup buttons */
+document.getElementById("teamChoices").innerHTML=[2,3,4,5,6,7,8,9,10].map(n=>`<button onclick="chooseTeams(${n})">${n} TEAMS</button>`).join("");
+window.addEventListener("beforeunload",()=>{if(G&&G.stage!=="setup")saveGame(false)});
+/* restore saved state silently on load; user can also use CONTINUE */
+(function(){const raw=localStorage.getItem("adiWorldCricketAuction");if(raw){try{const s=JSON.parse(raw);if(s&&s.stage&&s.stage!=="setup")document.querySelector(".brand").insertAdjacentHTML("afterend",`<div class="notice" id="savedNotice">💾 Saved game available — press CONTINUE GAME.</div>`)}catch(e){}}})();
+</script>
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => navigator.serviceWorker.register('./sw.js').catch(()=>{}));
+}
+</script>
+</body>
+</html>

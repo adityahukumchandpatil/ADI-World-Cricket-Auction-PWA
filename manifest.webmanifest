@@ -1,0 +1,17 @@
+{
+  "name": "ADI World Cricket Auction",
+  "short_name": "ADI Cricket Auction",
+  "description": "Offline world-player cricket auction and T20 tournament game.",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "landscape",
+  "background_color": "#07111f",
+  "theme_color": "#07111f",
+  "lang": "en",
+  "categories": ["games", "sports"],
+  "icons": [
+    {"src":"icons/icon-192.png","sizes":"192x192","type":"image/png","purpose":"any maskable"},
+    {"src":"icons/icon-512.png","sizes":"512x512","type":"image/png","purpose":"any maskable"}
+  ]
+}
